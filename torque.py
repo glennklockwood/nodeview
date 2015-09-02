@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 import sys
-import xml.etree.ElementTree as ET
+try:
+    import xml.etree.ElementTree as ET
+except ImportError:
+    import elementtree.ElementTree as ET
 import subprocess
 
 def _get_subprocess_xml( args ):
@@ -104,14 +107,17 @@ def nodeview( args ):
             np_avail = np
 
         # try to get total physical memory and avail memory
-        if 'physmem' in status:
-            physmem_kb = int(status['physmem'].strip('kb'))
-        else:
-            physmem_kb = 0
         if 'availmem' in status:
             availmem_kb = int(status['availmem'].strip('kb'))
         else:
             availmem_kb = 0
+
+        if 'physmem' in status:
+            physmem_kb = int(status['physmem'].strip('kb'))
+            availmem_pct = 100.0 * (1.0 - float(availmem_kb) / float(physmem_kb))
+        else:
+            physmem_kb = 0
+            availmem_pct = 0
 
         # node state (generally an arbitrary string)
         if 'state' in status:
@@ -119,7 +125,16 @@ def nodeview( args ):
         else:
             state = ""
 
-        property_string = [ state ] + node.find('properties').text.split(',')
+        # load on node.  XT nodes do not report this
+        if 'loadave' in status:
+            load = float( status['loadave'] )
+        else:
+            load = 0.0
+
+        property_string = [ state ]
+        if node.find('properties') is not None:
+             property_string = property_string + node.find('properties').text.split(',')
+
         print "%-14s %4d %4d %7d %3d/%3d %5.1fG %6.1f%% %7.2f %s" % (
             name,
             0,
@@ -128,9 +143,13 @@ def nodeview( args ):
             np-np_avail,
             np,
             physmem_kb / 1024.0 / 1024.0,
-            100.0 - 100 * availmem_kb / physmem_kb,
-            0.0,
+            availmem_pct,
+            load,
             ':'.join( property_string ).lower() )
-
 # 12345678901234 1234 1234 1234567 1234567 123456 1234567 1234567 123456
 # node           jobs rnks cpus    slots   totmem %memuse avgload state
+
+if __name__ == '__main__':
+    _pretty_print_element( _get_subprocess_xml( [ 'pbsnodes', '-x' ] ) )
+
+

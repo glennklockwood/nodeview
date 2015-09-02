@@ -21,21 +21,38 @@ nodes look like this:
 
 And login nodes look like this:
 
-<?xml version="1.0" ?>
-<Node>
-    <name>nid01664</name>
-    <state>free</state>
-    <power_state>Running</power_state>
-    <np>64</np>
-    <properties>alps_login</properties>
-    <ntype>cluster</ntype>
-    <jobs/>
-    <status>
-        rectime=1441144900,macaddr=00:01:01:00:08:80,cpuclock=Performance:2401MHz,varattr=,jobs=3508074.edique02(cput=1883,energy_used=0,mem=90296kb,vmem=438936kb,walltime=164997) 3509274.edique02(cput=9,energy_used=0,mem=11000kb,vmem=160356kb,walltime=133151) 3512277.edique02(cput=2,energy_used=0,mem=10944kb,vmem=156892kb,walltime=80685) 3513585.edique02(cput=1,energy_used=0,mem=11128kb,vmem=159520kb,walltime=59129) 3514272.edique02(cput=1,energy_used=0,mem=10660kb,vmem=91236kb,walltime=57049) 3517738.edique02(cput=2,energy_used=0,mem=10556kb,vmem=159688kb,walltime=25868) 3518461.edique02(cput=0,energy_used=0,mem=10856kb,vmem=163864kb,walltime=19740,session_id=48466) 3510901.edique02(cput=0,energy_used=0,mem=10576kb,vmem=159420kb,walltime=13580,session_id=31177) 3518929.edique02(cput=1,energy_used=0,mem=10840kb,vmem=94248kb,walltime=13374) 3519493.edique02(cput=0,energy_used=0,mem=10836kb,vmem=160224kb,walltime=7006,session_id=23363) 3517592.edique02(cput=1,energy_used=0,mem=10360kb,vmem=90584kb,walltime=6464,session_id=29103) 3517595.edique02(cput=1,energy_used=0,mem=10360kb,vmem=156120kb,walltime=4575,session_id=2108) 3519940.edique02(cput=1,energy_used=0,mem=10648kb,vmem=156728kb,walltime=2657,session_id=24726) 3518413.edique02(cput=1,energy_used=0,mem=6212kb,vmem=69848kb,walltime=1892,session_id=31263) 3518785.edique02(cput=1,energy_used=0,mem=6188kb,vmem=135380kb,walltime=1523,session_id=37263) 3521144.edique02(cput=0,energy_used=0,mem=7400kb,vmem=161824kb,walltime=407,session_id=49075),state=free,netload=1004344494441,gres=,loadave=0.10,ncpus=48,physmem=66070012kb,availmem=56351776kb,totmem=66070012kb,idletime=14764,nusers=14,nsessions=16,sessions=49075 37263 31263 24726 2108 29103 23363 32525 31177 48466 26308 30249 24142 7124 42105 31655,uname=Linux nid01664 3.0.101-0.35.1_1.0502.8640-cray_ari_s #1 SMP Wed Feb 18 05:08:48 UTC 2015 x86_64,opsys=linux
-    </status>
-    <mom_service_port>15002</mom_service_port>
-    <mom_manager_port>15003</mom_manager_port>
-</Node>
+    <?xml version="1.0" ?>
+    <Node>
+        <name>nid01664</name>
+        <state>free</state>
+        <power_state>Running</power_state>
+        <np>64</np>
+        <properties>alps_login</properties>
+        <ntype>cluster</ntype>
+        <jobs/>
+        <status>
+            rectime=1441144900,macaddr=00:01:01:00:08:80,cpuclock=Performance:2401MHz,varattr=,jobs=3508074.edique02(cput=1883,energy_used=0,mem=90296kb,vmem=438936kb,walltime=164997) 3509274.edique02(cput=9,energy_used=0,mem=11000kb,vmem=160356kb,walltime=133151) 3512277.edique02(cput=2,energy_used=0,mem=10944kb,vmem=156892kb,walltime=80685) 3513585.edique02(cput=1,energy_used=0,mem=11128kb,vmem=159520kb,walltime=59129) 3514272.edique02(cput=1,energy_used=0,mem=10660kb,vmem=91236kb,walltime=57049) 3517738.edique02(cput=2,energy_used=0,mem=10556kb,vmem=159688kb,walltime=25868) 3518461.edique02(cput=0,energy_used=0,mem=10856kb,vmem=163864kb,walltime=19740,session_id=48466) 3510901.edique02(cput=0,energy_used=0,mem=10576kb,vmem=159420kb,walltime=13580,session_id=31177) 3518929.edique02(cput=1,energy_used=0,mem=10840kb,vmem=94248kb,walltime=13374) 3519493.edique02(cput=0,energy_used=0,mem=10836kb,vmem=160224kb,walltime=7006,session_id=23363) 3517592.edique02(cput=1,energy_used=0,mem=10360kb,vmem=90584kb,walltime=6464,session_id=29103) 3517595.edique02(cput=1,energy_used=0,mem=10360kb,vmem=156120kb,walltime=4575,session_id=2108) 3519940.edique02(cput=1,energy_used=0,mem=10648kb,vmem=156728kb,walltime=2657,session_id=24726) 3518413.edique02(cput=1,energy_used=0,mem=6212kb,vmem=69848kb,walltime=1892,session_id=31263) 3518785.edique02(cput=1,energy_used=0,mem=6188kb,vmem=135380kb,walltime=1523,session_id=37263) 3521144.edique02(cput=0,energy_used=0,mem=7400kb,vmem=161824kb,walltime=407,session_id=49075),state=free,netload=1004344494441,gres=,loadave=0.10,ncpus=48,physmem=66070012kb,availmem=56351776kb,totmem=66070012kb,idletime=14764,nusers=14,nsessions=16,sessions=49075 37263 31263 24726 2108 29103 23363 32525 31177 48466 26308 30249 24142 7124 42105 31655,uname=Linux nid01664 3.0.101-0.35.1_1.0502.8640-cray_ari_s #1 SMP Wed Feb 18 05:08:48 UTC 2015 x86_64,opsys=linux
+        </status>
+        <mom_service_port>15002</mom_service_port>
+        <mom_manager_port>15003</mom_manager_port>
+    </Node>
+
+Non-XT nodes (e.g., commodity cluster nodes) look like this:
+
+    <Node>
+        <name>c0265</name>
+        <state>free</state>
+        <power_state>Running</power_state>
+        <np>8</np>
+        <properties>docker</properties>
+        <ntype>cluster</ntype>
+        <status>
+            rectime=1441170173,macaddr=e4:1f:13:22:4d:b8,cpuclock=Performance:1596MHz,varattr=,jobs=,state=free,netload=19118557999,gres=,loadave=0.04,ncpus=8,physmem=24728500kb,availmem=21813020kb,totmem=24728500kb,idletime=1301281,nusers=0,nsessions=0,uname=Linux c0265 2.6.32-358.18.1.el6.nersc.x86_64 #1 SMP Wed Aug 28 02:17:42 PDT 2013 x86_64,opsys=linux
+        </status>
+        <mom_service_port>15002</mom_service_port>
+        <mom_manager_port>15003</mom_manager_port>
+    </Node>
+
 
 
 The 'state' field in each node's XML output varies based on its function.  These
