@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import nodeview
+
 import sys
 try:
     import xml.etree.ElementTree as ET
@@ -69,11 +71,12 @@ def _pretty_print_dict( d ):
     import json
     print json.dumps( status, sort_keys=True, indent=4 )
 
-def nodeview( args ):
+def generate_nodelist( ):
     element = _get_subprocess_xml( [ 'pbsnodes', '-x' ] )
 
-    nodelist = element.findall( './Node' )
-    for node in nodelist:
+    node_list = []
+    node_elements = element.findall( './Node' )
+    for node in node_elements:
         vals = []
 
         # get node status
@@ -114,10 +117,8 @@ def nodeview( args ):
 
         if 'physmem' in status:
             physmem_kb = int(status['physmem'].strip('kb'))
-            availmem_pct = 100.0 * (1.0 - float(availmem_kb) / float(physmem_kb))
         else:
             physmem_kb = 0
-            availmem_pct = 0
 
         # node state (generally an arbitrary string)
         if 'state' in status:
@@ -131,23 +132,23 @@ def nodeview( args ):
         else:
             load = 0.0
 
-        property_string = [ state ]
         if node.find('properties') is not None:
-             property_string = property_string + node.find('properties').text.split(',')
+            properties = node.find('properties').text.split(',')
+        else:
+            properties = []
 
-        print "%-14s %4d %4d %7d %3d/%3d %5.1fG %6.1f%% %7.2f %s" % (
-            name,
-            0,
-            0,
-            np,
-            np-np_avail,
-            np,
-            physmem_kb / 1024.0 / 1024.0,
-            availmem_pct,
-            load,
-            ':'.join( property_string ).lower() )
-# 12345678901234 1234 1234 1234567 1234567 123456 1234567 1234567 123456
-# node           jobs rnks cpus    slots   totmem %memuse avgload state
+        node_list.append( nodeview.Node( 
+            name=name,
+            np=np,
+            np_avail=np_avail,
+            physmem_kb=physmem_kb,
+            availmem_kb=availmem_kb,
+            load=load,
+            state=state,
+            properties=properties,
+            other_info=status) )
+
+    return node_list
 
 if __name__ == '__main__':
     _pretty_print_element( _get_subprocess_xml( [ 'pbsnodes', '-x' ] ) )

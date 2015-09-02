@@ -2,6 +2,8 @@
 
 import sys
 import torque
+import nodeview
 
 if __name__ == '__main__':
-    torque.nodeview( sys.argv[1:] )
+    for node in torque.generate_nodelist( ):
+        nodeview.print_node_line( node )
