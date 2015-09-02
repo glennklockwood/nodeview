@@ -26,33 +26,48 @@ def parse_node_status( status_str ):
     within parentheses, one cannot simply split on commas and instead must
     use a context-aware split.
     """
+    _SPECIAL_FIELDS = [ 'jobs', 'message' ]
     parse_state = 0
     new_parts = []
-    jobs_part = []
+    special_part = []
+    special_parts = []
     parts = status_str.split(',')
     for part in parts:
+        # not currently parsing a special field
         if parse_state == 0:
-            if part.startswith( 'jobs=' ):
-                if '(' in part:
+            is_special_field = False
+            # is this field one that must be parsed specially?
+            for special_field in _SPECIAL_FIELDS:
+                if part.startswith( special_field + '=' ) and '(' in part:
                     parse_state += 1
-                jobs_part.append( part )
-            else:
+                    special_part.append( part )
+                    is_special_field = True
+                    break
+            if not is_special_field:
                 new_parts.append( part )
+        # currently parsing a special field
         elif parse_state == 1:
             if ')' in part and '(' in part:
-                jobs_part.append( part )
+                special_part.append( part )
             elif ')' in part:
                 parse_state -= 1
-                jobs_part.append( part )
+                special_part.append( part )
+                special_parts.append( special_part )
+                special_part = []
             else:
-                jobs_part.append( part )
+                special_part.append( part )
 
-    if len(jobs_part) > 0:
-        new_parts.append( ','.join( jobs_part ) )
+    for parts in special_parts:
+        if len( parts ) > 0:
+            new_parts.append( ','.join( parts ) )
 
     status_dict = {}
     for keyval in new_parts:
-        k, v = keyval.split('=',1)
+        if '=' in keyval:
+            k, v = keyval.split('=',1)
+        else:
+            k = ""
+            v = keyval
         status_dict[k] = v
 
     return status_dict
